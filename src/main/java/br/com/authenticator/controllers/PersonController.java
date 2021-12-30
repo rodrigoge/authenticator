@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,14 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.authenticator.models.Person;
 import br.com.authenticator.services.PersonService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @RequestMapping("/")
 @RestController
 @AllArgsConstructor
+@NoArgsConstructor
 public class PersonController {
 	
 	@Autowired
 	private PersonService personService;
+	
+	
 	
 	@GetMapping
 	public List<Person> findAllPeople(){
