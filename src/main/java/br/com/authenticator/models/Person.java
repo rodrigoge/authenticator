@@ -57,7 +57,6 @@ public class Person {
 	
 	@Getter @Setter @Column
 	@NotBlank(message = "Senha é obrigatória.")
-	@Size(min = 3, max = 8, message = "Senha deve conter no mínimo {min} caracteres e no máximo {max} de caracteres.")
 	private String password;
 	
 	@Getter @Setter @Column

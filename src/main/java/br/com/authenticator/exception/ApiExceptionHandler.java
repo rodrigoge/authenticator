@@ -68,4 +68,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		return handleExceptionInternal(ex, error , new HttpHeaders(), status, request);
 	}
+	
+	@ExceptionHandler(LengthPasswordException.class)
+	public ResponseEntity<Object> handleLengthPasswordException(LengthPasswordException ex, WebRequest request){
+		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+				
+		ErrorValidation error = new ErrorValidation();
+		error.setStatus(status.value());
+		error.setDateHour(LocalDateTime.now());
+		error.setTitle(ex.getMessage());
+		
+		return handleExceptionInternal(ex, error , new HttpHeaders(), status, request);
+	}
 }
