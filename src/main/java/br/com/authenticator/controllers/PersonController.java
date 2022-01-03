@@ -1,6 +1,7 @@
 package br.com.authenticator.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -23,20 +24,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonController {
-	
+
 	@Autowired
 	private PersonService personService;
-	
-	
-	
+
 	@GetMapping
-	public List<Person> findAllPeople(){
+	public List<Person> findAllPeople() {
 		return personService.findAll();
 	}
-	
-	@PostMapping
+
+	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Person save(@Valid @RequestBody Person person) {
 		return personService.save(person);
 	}
+
+	@PostMapping("/login")
+	@ResponseStatus(HttpStatus.OK)
+	public Person login(@RequestBody Map<String, String> userCredenciais) {
+		return personService.login(userCredenciais.get("emailOrUsername"), userCredenciais.get("password"));
+	}
+
 }
