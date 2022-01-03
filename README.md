@@ -14,10 +14,9 @@
 ✅ Encrypt password using MD5<br>
 ✅ Sending data in JSON format<br>
 ✅ Error handling with custom messages<br>
-🔳 User login validation<br>
-🔳 Password decryption<br>
-🔳 Validation if email and username exist<br>
-🔳 Validation if password is correct<br>
+✅ User login validation<br>
+✅ Validation if email and username exist<br>
+✅ Validation if password is correct<br>
 
 
 ## ⚛️ Tools
