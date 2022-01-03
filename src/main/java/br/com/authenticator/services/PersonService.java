@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.authenticator.exception.ExistsObjectException;
 import br.com.authenticator.exception.LengthPasswordException;
+import br.com.authenticator.exception.NotFoundException;
 import br.com.authenticator.middleware.HashPassword;
 import br.com.authenticator.models.Person;
 import br.com.authenticator.repositories.PersonRepository;
@@ -44,5 +45,32 @@ public class PersonService {
 		person.setPassword(hash.hashGenerator(person.getPassword()));
 		
 		return personRepository.save(person);
+	}
+	
+	public Person login(String emailOrUsername, String password) {
+		if (emailOrUsername == null || emailOrUsername.isEmpty() && password == null || password.isEmpty()) {
+			throw new NotFoundException("Email ou senha não podem ser vazios.");
+		}
+
+		Person person = new Person();
+
+		person = personRepository.findPersonByEmail(emailOrUsername);
+
+		if (person == null) {
+			person = personRepository.findPersonByUsername(emailOrUsername);
+		}
+
+		if (person == null) {
+			throw new NotFoundException("Usuário não encontrado.");
+		}
+
+		HashPassword hash = new HashPassword();
+		password = hash.hashGenerator(password);
+
+		if (!person.getPassword().equals(password)) {
+			throw new ExistsObjectException("Senha invalida.");
+		}
+
+		return person;
 	}
 }

@@ -1,5 +1,7 @@
 package br.com.authenticator.controllers;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,12 @@ public class PersonController {
 	private PersonService personService;
 	
 	@PostMapping
+	@ResponseStatus(HttpStatus.OK)
+	public Person login(@RequestBody Map<String, String> userCredenciais) {
+		return personService.login(userCredenciais.get("emailOrUsername"), userCredenciais.get("password"));
+	}
+	
+	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Person save(@Valid @RequestBody Person person) {
 		return personService.save(person);
